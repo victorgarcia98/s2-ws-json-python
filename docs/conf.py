@@ -23,12 +23,12 @@ from pkg_resources import get_distribution
 
 # -- Project information -----------------------------------------------------
 
-project = "s2wsjson"
+project = "s2-ws-json-python"
 copyright = f"{datetime.now().year}, TNO and Seita..."
 author = "TNO B.V. and Seita"
 
 # The full version, including alpha/beta/rc tags
-release = get_distribution("s2wsjson").version
+release = get_distribution("s2-ws-json-python").version
 # The short X.Y.Z version
 version = ".".join(release.split(".")[:3])
 
@@ -179,8 +179,6 @@ htmlhelp_basename = "S2WSJSONdoc"
 
 # -- Options for intersphinx extension ---------------------------------------
 
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {"https://docs.python.org/3/": None}
 
 # -- Options for copybytton extension ---------------------------------------
 copybutton_prompt_is_regexp = True
@@ -191,15 +189,4 @@ copybutton_line_continuation_character = "\\"
 
 
 def setup(sphinx_app):
-    """
-    Here you can set config variables for Sphinx or even pass config variables from FlexMeasures to Sphinx.
-    For example, to display content depending on FLEXMEASURES_MODE (specified in the FlexMeasures app's config.py),
-    place this in one of the rst files:
-
-    .. ifconfig:: FLEXMEASURES_MODE == "play"
-
-        We are in play mode.
-
-    """
-
     pass
