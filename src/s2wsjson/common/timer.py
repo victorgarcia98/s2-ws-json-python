@@ -5,9 +5,9 @@ from typing import Optional
 
 from pydantic import validator
 
-
-from s2wsjson.generated.gen_s2 import Timer as GenTimer, Duration
-from s2wsjson.validate_values_mixin import patch, ValidateValuesMixin
+from s2wsjson.generated.gen_s2 import Duration
+from s2wsjson.generated.gen_s2 import Timer as GenTimer
+from s2wsjson.validate_values_mixin import ValidateValuesMixin, patch
 
 
 def from_timedelta_to_duration(duration: timedelta) -> Duration:
@@ -15,15 +15,18 @@ def from_timedelta_to_duration(duration: timedelta) -> Duration:
 
 
 @patch
-class Timer(GenTimer, ValidateValuesMixin['Timer']):
+class Timer(GenTimer, ValidateValuesMixin["Timer"]):
     class Config(GenTimer.Config):
         validate_assignment = True
 
-    id: uuid.UUID = GenTimer.__fields__['id']  # type: ignore[assignment]
+    id: uuid.UUID = GenTimer.__fields__["id"]  # type: ignore[assignment]
 
-    def __init__(self, id: uuid.UUID,
-                 duration: 'Duration | int | timedelta',
-                 diagnostic_label: Optional[str] = None):
+    def __init__(
+        self,
+        id: uuid.UUID,
+        duration: "Duration | int | timedelta",
+        diagnostic_label: Optional[str] = None,
+    ):
         if isinstance(duration, Duration):
             _duration = duration
         elif isinstance(duration, timedelta):
@@ -31,9 +34,7 @@ class Timer(GenTimer, ValidateValuesMixin['Timer']):
         else:
             _duration = Duration(__root__=duration)
 
-        super().__init__(id=id,
-                         duration=_duration,
-                         diagnostic_label=diagnostic_label)
+        super().__init__(id=id, duration=_duration, diagnostic_label=diagnostic_label)
 
     def duration_as_timedelta(self) -> timedelta:
         return timedelta(milliseconds=self.duration.__root__)
@@ -41,19 +42,19 @@ class Timer(GenTimer, ValidateValuesMixin['Timer']):
     def set_duration_as_timedelta(self, duration: timedelta):
         self.duration = from_timedelta_to_duration(duration)
 
-    @validator('id')
+    @validator("id")
     def validate_id(cls, v):
         if not v:
-            raise ValueError('ID may not be empty!')
+            raise ValueError("ID may not be empty!")
         return v
 
-    @validator('diagnostic_label')
+    @validator("diagnostic_label")
     def validate_diagnostic_label(cls, v):
-        if v is None: # case that diagnostic_label is not provided, we don't check 
+        if v is None:  # case that diagnostic_label is not provided, we don't check
             return v
-       
-        if '-' in v:
-            raise ValueError('diagnostic_label may not contain \'-\'')
+
+        if "-" in v:
+            raise ValueError("diagnostic_label may not contain '-'")
         return v
 
     def validate_across_values(self) -> bool:
