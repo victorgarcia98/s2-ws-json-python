@@ -203,12 +203,3 @@ def setup(sphinx_app):
     """
 
     pass
-    # sphinx_app.add_config_value('RELEASE_LEVEL', 'alpha', 'env')
-
-    # if gen_code_docs:
-    #     os.environ["SQLALCHEMY_DATABASE_URI"] = "not a uri"
-    #     os.environ["SECRET_KEY"] = "not a secret key"
-
-    #     from flexmeasures.app import create
-
-    #     create()  # we need to create the app for when sphinx imports modules that use current_app
