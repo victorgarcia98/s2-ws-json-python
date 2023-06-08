@@ -6,3 +6,7 @@
 .coverage
 unit_test_coverage/
 .mypy_cache/
+docs/_autosummary
+docs/_build
+.tox
+*.egg-info
