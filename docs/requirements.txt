@@ -1,0 +1,6 @@
+sphinx
+sphinx-rtd-theme >= 1.2
+sphinx-tabs
+sphinx_copybutton
+sphinx_fontawesome
+sphinxcontrib.httpdomain
