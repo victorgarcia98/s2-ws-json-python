@@ -1,9 +1,4 @@
-exclude: |
-    (?x)^(
-        ^docs/conf.py|
-        src/s2wsjson/generated/.*
-    )$
-
+exclude: src/s2wsjson/generated/.*
 include: src/.*
 
 repos:
