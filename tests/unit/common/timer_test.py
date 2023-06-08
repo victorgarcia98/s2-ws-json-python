@@ -54,6 +54,18 @@ class TimerTest(TestCase):
         expected_json = '{"id": "2bdec96b-be3b-4ba9-afa0-c4a0632ccedf", "diagnostic_label": "some_label", "duration": 5000}'
         self.assertEqual(json, expected_json)
 
+    def test_optional_parameters(self):
+        # Arrange
+        timer = Timer(id=uuid.UUID('2bdec96b-be3b-4ba9-afa0-c4a0632ccedf'),
+                      duration=timedelta(seconds=5))
+
+        expected_id = uuid.UUID('2bdec96b-be3b-4ba9-afa0-c4a0632ccedf')
+        expected_duration = timedelta(seconds=5)
+
+        self.assertIsNone(timer.diagnostic_label)
+        self.assertEqual(timer.id, expected_id)
+        self.assertEqual(timer.duration_as_timedelta(), expected_duration)
+
     def test__assignment__validator_error(self):
         # Arrange
         timer = Timer(id=uuid.UUID('2bdec96b-be3b-4ba9-afa0-c4a0632ccedf'),

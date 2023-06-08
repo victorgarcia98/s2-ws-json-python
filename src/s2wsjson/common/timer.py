@@ -20,7 +20,9 @@ class Timer(GenTimer, ValidateValuesMixin['Timer']):
 
     id: uuid.UUID = GenTimer.__fields__['id']  # type: ignore[assignment]
 
-    def __init__(self, id: uuid.UUID, diagnostic_label: Optional[str], duration: 'Duration | int | timedelta'):
+    def __init__(self, id: uuid.UUID,
+                 duration: 'Duration | int | timedelta',
+                 diagnostic_label: Optional[str] = None):
         if isinstance(duration, Duration):
             _duration = duration
         elif isinstance(duration, timedelta):
@@ -29,8 +31,8 @@ class Timer(GenTimer, ValidateValuesMixin['Timer']):
             _duration = Duration(__root__=duration)
 
         super().__init__(id=id,
-                         diagnostic_label=diagnostic_label,
-                         duration=_duration)
+                         duration=_duration,
+                         diagnostic_label=diagnostic_label)
 
     def duration_as_timedelta(self) -> timedelta:
         return timedelta(milliseconds=self.duration.__root__)
@@ -46,6 +48,9 @@ class Timer(GenTimer, ValidateValuesMixin['Timer']):
 
     @validator('diagnostic_label')
     def validate_diagnostic_label(cls, v):
+        if v is None: # case that diagnostic_label is not provided, we don't check 
+            return v
+       
         if '-' in v:
             raise ValueError('diagnostic_label may not contain \'-\'')
         return v
