@@ -202,11 +202,6 @@ def setup(sphinx_app):
 
     """
 
-    from s2wsjson.common.timer import Timer
-
-    for i in range(100):
-        print(Timer.__init__.__annotations__)
-
     pass
     # sphinx_app.add_config_value('RELEASE_LEVEL', 'alpha', 'env')
 
