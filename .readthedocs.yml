@@ -12,6 +12,14 @@ sphinx:
 formats:
   - pdf
 
+python:
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
+
+
 build:
   os: ubuntu-20.04
   tools:
@@ -19,10 +27,3 @@ build:
   jobs:
     post_create_environment:
       - pip install . --no-deps  # as python install step, RTD installs deps eagerly
-
-python:
-  install:
-    - method: pip
-      path: .
-      extra_requirements:
-        - docs
