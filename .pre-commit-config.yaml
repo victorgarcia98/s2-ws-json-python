@@ -1,4 +1,8 @@
-exclude: '^docs/conf.py|^src/s2wsjson/generated/*'
+exclude: |
+    (?x)^(
+        ^docs/conf.py|
+        src/s2wsjson/generated/.*
+    )$
 
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
