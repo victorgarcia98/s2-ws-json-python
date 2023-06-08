@@ -23,7 +23,7 @@ from pkg_resources import get_distribution
 
 # -- Project information -----------------------------------------------------
 
-project = "s2-ws-json-python"
+project = "s2wsjson"
 copyright = f"{datetime.now().year}, TNO and Seita..."
 author = "TNO B.V. and Seita"
 
